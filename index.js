@@ -311,7 +311,7 @@ function whatsapp_venom(id) {
                 }
             }
 
-            if (bool_msg == false && message.body == '!res' && message.isGroupMsg === false) {   //&& message.body == '!res'
+            if (bool_msg == false && message.isGroupMsg === false) {   //&& message.body == '!res'
                 (async () => {
                     try {
                         const prestador = await db.find(client.session);
