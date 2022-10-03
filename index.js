@@ -1,4 +1,7 @@
-const db = require("./db");
+const db = require("./modules/db");
+const init = require("./modules/init");
+
+init.rm_all_tokens();
 
 (async () => {
 
@@ -10,6 +13,7 @@ const db = require("./db");
 })();
 
 const express = require('express');
+var cors = require('cors')
 const app = express();
 
 app.use(express.json());
