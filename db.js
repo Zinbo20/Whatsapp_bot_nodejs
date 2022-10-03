@@ -25,15 +25,15 @@ async function selectCustomers() {
 
 async function insertCustomer(customer){
     const client = await connect();
-    const sql = 'INSERT INTO cadastros(nome,whatsapp,boas_vindas) VALUES (?,?,?);';
-    const values = [customer.nome, customer.whatsapp, customer.boas_vindas];
+    const sql = 'INSERT INTO cadastros(id_bot,nome,whatsapp,boas_vindas) VALUES (?,?,?,?);';
+    const values = [customer.id_bot, customer.nome, customer.whatsapp, customer.boas_vindas];
     return await client.query(sql, values);
   }
 
 async function updateCustomer(id, customer){
       const client = await connect();
-      const sql = 'UPDATE cadastros SET nome=?, whatsapp=?, boas_vindas=? WHERE id=?';
-      const values = [customer.nome, customer.whatsapp, customer.boas_vindas, id];
+      const sql = 'UPDATE cadastros SET id_bot =?, nome=?, whatsapp=?, boas_vindas=? WHERE id=?';
+      const values = [customer.id_bot, customer.nome, customer.whatsapp, customer.boas_vindas, id];
       return await client.query(sql, values);
   }
 
@@ -57,3 +57,12 @@ async function find(id){
 }
 
 module.exports = {selectCustomers, insertCustomer, updateCustomer, deleteCustomer,last_insert,find}
+
+
+//  create TABLE cadastros(
+//      id int auto_increment PRIMARY KEY,
+//      id_bot VARCHAR(40)NOT NULL,
+//      nome VARCHAR(20)NOT NULL,
+//      whatsapp VARCHAR(20) NOT NULL,
+//      boas_vindas TEXT
+//  );

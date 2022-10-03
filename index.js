@@ -1,4 +1,3 @@
-
 const db = require("./db");
 
 (async () => {
@@ -21,24 +20,35 @@ const venom = require('venom-bot');
 
 let sessions = [];
 
+var QRcodes = [];
+function my_QRcode(qr, clientId) {
+    this.qr = qr;
+    this.clientId = clientId;
+}
+
+var session_stts = [];
+function my_session(status, clientId) {
+    this.status = status;
+    this.clientId = clientId;
+}
+
 app.post("/Cadastro_do_prestador", (req, res) => {
+
+    var milliseconds = new Date().getTime();
 
     const { nome, whatsapp, boas_vindas } = req.body;
     const prestador = { nome, whatsapp, boas_vindas };
 
     (async () => {
         try {
-            await db.insertCustomer({ nome: prestador.nome, whatsapp: prestador.whatsapp, boas_vindas: prestador.boas_vindas });
+            await db.insertCustomer({ id_bot: milliseconds, nome: prestador.nome, whatsapp: prestador.whatsapp, boas_vindas: prestador.boas_vindas });
             const new_prestador = await db.last_insert();
-
             return res.status(201).json(new_prestador); //id do banco de dados return
         } catch (e) {
             console.error('Error when create: ', e.message); //return object error
             return res.status(500).json("False");
         }
-
     })();
-
 });
 
 app.post("/update/:prestador_id", (req, res) => {
@@ -50,16 +60,15 @@ app.post("/update/:prestador_id", (req, res) => {
 
     (async () => {
         try {
-            await db.updateCustomer(prestador_id, { nome: prestador.nome, whatsapp: prestador.whatsapp, boas_vindas: prestador.boas_vindas });
-            const update_prestador = await db.find(prestador_id);
+            update_prestador = await db.find(prestador_id);
+            await db.updateCustomer(prestador_id, { id_bot: update_prestador.id_bot, nome: prestador.nome, whatsapp: prestador.whatsapp, boas_vindas: prestador.boas_vindas });//nome: prestador.nome,
+            update_prestador = await db.find(prestador_id);
             return res.status(201).json(update_prestador);
         } catch (e) {
             console.error('Error when update: ', e.message); //return object error
             return res.status(500).json("False");
         }
-
     })();
-
 });
 
 
@@ -95,79 +104,53 @@ app.get("/prestadores", (req, res) => {
     })();
 });
 
-var QRcodes = [];
-
-function my_QRcode(qr, clientId) {
-    this.qr = qr;
-    this.clientId = clientId;
-}
-
 app.get("/RequestQR/:prestador_id", (req, res) => {
 
     const { prestador_id } = req.params;
 
     (async () => {
-
         try {
             const prestador = await db.find(prestador_id);
-
+            console.log(prestador);
             if (prestador) {
-
                 const itemIndex = QRcodes.findIndex(obj => obj.clientId === prestador_id);
                 if (itemIndex > -1) {
                     var qrcode = QRcodes[itemIndex].qr
                     res.json(qrcode);
                 }
                 else res.status(404).json("QRcode not found");
-
             }
             else res.status(404).json("not found");
-
         } catch (e) {
             console.error('Error when find: ', e.message); //return object error
             return res.status(500).json(e.message);
         }
-
     })();
-
 });
-
-var session_stts = [];
-
-function my_session(status, clientId) {
-    this.status = status;
-    this.clientId = clientId;
-}
 
 app.get("/sessions/:prestador_id", (req, res) => {
 
     const { prestador_id } = req.params;
 
     (async () => {
-
         try {
             const prestador = await db.find(prestador_id);
-
             if (prestador) {
-
                 const itemIndex = session_stts.findIndex(obj => obj.clientId === prestador_id);
                 if (itemIndex > -1) {
                     var stt = session_stts[itemIndex].status
                     res.json(stt);
                 }
                 else res.status(404).json("Session Status not found");
-
             }
             else res.status(404).json("not found");
-
         } catch (e) {
             console.error('Error when find: ', e.message); //return object error
             return res.status(500).json(e.message);
         }
-
     })();
-
 });
+
 
 app.post("/initialize/:prestador_id", (req, res) => {
 
@@ -176,16 +159,36 @@ app.post("/initialize/:prestador_id", (req, res) => {
     (async () => {
         try {
             const prestador = await db.find(prestador_id);
-
             if (prestador) {
+                const itemIndex = QRcodes.findIndex(obj => obj.clientId === prestador.id_bot);
+                if (itemIndex > -1) {
+                    QRcodes.splice(itemIndex, 1);
+                }
+            }
+            else console.log("not found");
+        } catch (e) {
+            console.error('Error when find: ', e.message); //return object error
+        }
 
-                whatsapp_venom(prestador.id);
+        var milliseconds = new Date().getTime();
 
-                res.status(200).json("client initialize " + prestador.id);
+        try {
+            update_prestador = await db.find(prestador_id);
+            await db.updateCustomer(prestador_id, { id_bot: milliseconds, nome: update_prestador.nome, whatsapp: update_prestador.whatsapp, boas_vindas: update_prestador.boas_vindas });
+            update_prestador = await db.find(prestador_id);
+            //return res.status(201).json(update_prestador);
+        } catch (e) {
+            console.error('Error when update: ', e.message); //return object error
+            //return res.status(500).json("False");
+        }
 
+        try {
+            const prestador = await db.find(prestador_id);
+            if (prestador) {
+                whatsapp_venom(prestador.id, prestador.id_bot);
+                res.status(200).json("client initialize " + prestador.id_bot);
             }
             else res.status(404).json("not found");
-
         } catch (e) {
             console.error('Error when find: ', e.message); //return object error
             return res.status(500).json(e.message);
@@ -196,27 +199,44 @@ app.post("/initialize/:prestador_id", (req, res) => {
 
 app.post("/envio_de_mensagem", (req, res) => {
 
+    //const { token } = req.params;
     const { id, whatsapp, mensagem } = req.body;
-
     const envio = { id, whatsapp, mensagem };
 
     if (sessions.length == 0) return res.status(200).json("0 sessions");
 
-    const itemIndex = sessions.findIndex(obj => obj.session === envio.id);
+    const itemIndex = sessions.findIndex(obj => obj.session == envio.id);
     if (itemIndex > -1) {
         client = sessions[itemIndex];
-
         var destino = envio.whatsapp + "@c.us";
-
         try {
             client.sendText(destino, envio.mensagem);
-            return res.status(200).json("True");  //Como retorno um true ou false
+            return res.status(200).json("Mensagem enviada para " + destino);
         } catch (e) {
-            console.error('Error when sending: ', e.message); //return object error
-            return res.status(500).json("False");
+            console.error('Error when send: ', e.message);
+            return res.status(500).json(e.message);
         }
     }
-    else return res.status(404).json("Not found");
+    else return res.status(404).json("Not found Session");
+
+});
+
+app.get("/token_id/:prestador_id", (req, res) => {
+
+    const { prestador_id } = req.params;
+
+    (async () => {
+        try {
+            prestador = await db.find(prestador_id);
+            if (prestador) {
+                return res.status(200).json(prestador.id_bot);
+            }
+            else return res.status(404).json("not found prestador");
+        } catch (e) {
+            console.error('Error when find: ', e.message);
+            return res.status(500).json(e.message);
+        }
+    })();
 
 });
 
@@ -232,15 +252,17 @@ app.post("/resetar_dia", (req, res) => {
     return res.status(200).json("Client_received resetado");
 });
 
-function whatsapp_venom(id) {
 
+function whatsapp_venom(id, id_bot) {
+
+    prestador_bot = id_bot.toString();
     prestador_id = id.toString();
 
     //console.log(prestador_id);
     venom
         .create(
             //session
-            prestador_id, //Pass the name of the client you want to start the bot
+            prestador_bot, //Pass the name of the client you want to start the bot
             //catchQR
             (base64Qrimg, asciiQR, attempts, urlCode) => {
                 console.log('Number of attempts to read the qrcode: ', attempts);
@@ -254,7 +276,7 @@ function whatsapp_venom(id) {
                 } else {
                     QRcodes.push(QR);
                 }
-                console.log(QRcodes);
+                //console.log(QRcodes);
 
             },
             (statusSession, session) => {
@@ -289,12 +311,13 @@ function whatsapp_venom(id) {
 
     function start(client) {
 
+        console.log("ready");
+
         sessions.push(client);
 
         const itemIndex = QRcodes.findIndex(obj => obj.clientId === client.session);
         if (itemIndex > -1) {
             QRcodes.splice(itemIndex, 1);
-            console.log("splice");
         }
         // console.log(client);
         // console.log(client.session);
