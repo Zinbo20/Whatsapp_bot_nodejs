@@ -1,0 +1,21 @@
+_id: req_a904625232e6454aafd4c75dafc00535
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1663809686297
+created: 1663809664402
+url: "{{ _.base }}/delete/5"
+name: delete
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1663809664402
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

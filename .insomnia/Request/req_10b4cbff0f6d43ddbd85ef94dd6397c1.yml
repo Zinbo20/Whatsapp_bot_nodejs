@@ -1,0 +1,31 @@
+_id: req_10b4cbff0f6d43ddbd85ef94dd6397c1
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1664840557793
+created: 1662226809389
+url: "{{ _.base }}/Cadastro_do_prestador"
+name: Cadastro_do_prestador
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"nome": "Bot",
+    	"whatsapp": "",
+    	"boas_vindas": "*Obrigado por entrar em contato com {NOME_ESTABELECIMENTO}!* \ud83d\ude09\n\nPara agendar um hor\u00e1rio, clique no link abaixo:\n\n\u27a1\ufe0f {URL_PERFIL_ESTABELECIMENTO}\n\nCaso tenha alguma *outra d\u00favida*, deixe-nos saber!"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_e6b2aaf5fc5d44f0b64f03128f623aec
+authentication: {}
+metaSortKey: -1662226809389
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

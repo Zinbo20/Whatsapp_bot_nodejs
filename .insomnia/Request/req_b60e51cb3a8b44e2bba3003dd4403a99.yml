@@ -1,0 +1,21 @@
+_id: req_b60e51cb3a8b44e2bba3003dd4403a99
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1664321843717
+created: 1662233117803
+url: "{{ _.base }}/initialize/1"
+name: Initialize
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1662233117803
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

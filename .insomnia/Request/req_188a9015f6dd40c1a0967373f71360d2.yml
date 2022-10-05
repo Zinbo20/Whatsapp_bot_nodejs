@@ -1,0 +1,21 @@
+_id: req_188a9015f6dd40c1a0967373f71360d2
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1664323098263
+created: 1662418144023
+url: "{{ _.base }}/RequestQR/1"
+name: QRcode
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1662418144023
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

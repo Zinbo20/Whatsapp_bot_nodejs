@@ -1,0 +1,21 @@
+_id: req_796380e27d7046e085e30bc859f68053
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1662227792157
+created: 1662227643055
+url: "{{ _.base }}/prestadores"
+name: ALL
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1662227643055
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

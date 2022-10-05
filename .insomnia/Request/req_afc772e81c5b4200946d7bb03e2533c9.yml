@@ -1,0 +1,21 @@
+_id: req_afc772e81c5b4200946d7bb03e2533c9
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1663188193025
+created: 1663119810161
+url: "{{ _.base }}/resetar_dia"
+name: Reset_day
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1663119810161
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

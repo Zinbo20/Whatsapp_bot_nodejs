@@ -1,0 +1,31 @@
+_id: req_d8dfbd2a39044568ade55d080f62411d
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1664937552956
+created: 1662416351703
+url: "{{ _.base }}/envio_de_mensagem"
+name: Env
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"id": "1664840405895",
+    	"whatsapp": "5515996361012",
+    	"mensagem": "*Obrigado por entrar em contato com {NOME_ESTABELECIMENTO}!* \ud83d\ude09\n\nPara agendar um hor\u00e1rio, clique no link abaixo:\n\n\u27a1\ufe0f {URL_PERFIL_ESTABELECIMENTO}\n\nCaso tenha alguma *outra d\u00favida*, deixe-nos saber!"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_8a76eac1dfd744abb7158f7cef656efd
+authentication: {}
+metaSortKey: -1662416351703
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,21 @@
+_id: req_932a907193064f8992327a3b6cbcf3b1
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1664323141224
+created: 1663289370471
+url: "{{ _.base }}/sessions/1"
+name: Sessions Status
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1663289370471
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

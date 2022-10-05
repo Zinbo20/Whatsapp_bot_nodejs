@@ -1,0 +1,21 @@
+_id: req_b6d3e77fce3a49718eb50fa24744ba9d
+type: Request
+parentId: wrk_a0f16f22d74047f7a1711d110757d62b
+modified: 1664833197785
+created: 1664833120729
+url: "{{ _.base }}/token_id/1"
+name: Get_Token
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1664833120729
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
