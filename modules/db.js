@@ -56,7 +56,14 @@ async function find(id){
     return rows[0];
 }
 
-module.exports = {selectCustomers, insertCustomer, updateCustomer, deleteCustomer,last_insert,find}
+async function find_bot(id_bot){ 
+    const client = await connect();
+    const sql = 'SELECT * FROM cadastros WHERE id_bot = ?';
+    const [rows] = await client.query(sql, [id_bot]);
+    return rows[0];
+}
+
+module.exports = {selectCustomers, insertCustomer, updateCustomer, deleteCustomer,last_insert,find,find_bot}
 
 
 //  create TABLE cadastros(

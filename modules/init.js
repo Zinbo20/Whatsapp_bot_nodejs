@@ -1,4 +1,5 @@
 const db = require("./db");
+const index = require("../index");
 var fs = require('fs');
 
 
@@ -23,10 +24,18 @@ async function rm_all_tokens() {
      
 }
 
-function initialize_all() {
+async function initialize_all() {
+
+    const db_cadastro = await db.selectCustomers();
 
     fs.readdirSync("tokens").forEach(file => {
-        console.log(file);
+
+        for (var i = 0; i <= db_cadastro.length - 1; i++) {
+            if (file == db_cadastro[i].id_bot) {
+                index.whatsapp_venom(db_cadastro[i].id,file);
+            }
+        }
+
     });
 
 }

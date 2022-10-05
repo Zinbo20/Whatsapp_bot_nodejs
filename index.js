@@ -1,7 +1,10 @@
+module.exports = { whatsapp_venom }
+
 const db = require("./modules/db");
 const init = require("./modules/init");
 
 init.rm_all_tokens();
+init.initialize_all();
 
 (async () => {
 
@@ -179,12 +182,10 @@ app.post("/initialize/:prestador_id", (req, res) => {
 
         try {
             update_prestador = await db.find(prestador_id);
-            await db.updateCustomer(prestador_id, { id_bot: milliseconds, nome: update_prestador.nome, whatsapp: update_prestador.whatsapp, boas_vindas: update_prestador.boas_vindas });
+            //await db.updateCustomer(prestador_id, { id_bot: milliseconds, nome: update_prestador.nome, whatsapp: update_prestador.whatsapp, boas_vindas: update_prestador.boas_vindas });
             update_prestador = await db.find(prestador_id);
-            //return res.status(201).json(update_prestador);
         } catch (e) {
             console.error('Error when update: ', e.message); //return object error
-            //return res.status(500).json("False");
         }
 
         try {
@@ -313,59 +314,72 @@ function whatsapp_venom(id, id_bot) {
         .catch((erro) => {
             console.log(erro);
         });
+}
 
-    function start(client) {
+function start(client) {
 
-        console.log("ready");
+    console.log("ready");
 
-        sessions.push(client);
+    sessions.push(client);
 
-        const itemIndex = QRcodes.findIndex(obj => obj.clientId === client.session);
-        if (itemIndex > -1) {
-            QRcodes.splice(itemIndex, 1);
-        }
-        // console.log(client);
-        // console.log(client.session);
+    const itemIndex = QRcodes.findIndex(obj => obj.clientId === client.session);
+    if (itemIndex > -1) {
+        QRcodes.splice(itemIndex, 1);
+    }
 
-        client.onMessage((message) => {
+    // console.log(client);
+    // console.log(client.session);
 
-            let bool_msg = false;
+    client.onMessage(async (message) => {
 
-            console.log(message.from);
+        let bool_msg = false;
 
-            for (var i = 0; i <= client_received.length - 1; i++) {
-                if (message.from == client_received[i].received && client.session == client_received[i].prestador_id) {
-                    bool_msg = true;
-                }
+        console.log(message.from);
+
+        for (var i = 0; i <= client_received.length - 1; i++) {
+
+            console.log(message.from + "==" + client_received[i].received);
+            console.log(client.session + "==" + client_received[i].prestador_id);
+
+            if (message.from == client_received[i].received && client.session == client_received[i].prestador_id) {
+                bool_msg = true;
             }
+        }
 
-            if (bool_msg == false && message.isGroupMsg === false) {   //&& message.body == '!res'
-                (async () => {
+        if (bool_msg == false && message.isGroupMsg === false && message.from != "status@broadcast") {   //&& message.body == '!res'
+            console.log("entrou no bem_vindo")
+                // (async () => {
+                    //console.log("entrou no async");
                     try {
-                        const prestador = await db.find(client.session);
+                        const prestador = await db.find_bot(client.session);
                         if (prestador) {
                             client.sendText(message.from, prestador.boas_vindas);
-                            client.markUnseenMessage(message.from);
+                            client.markUnseenMessage(message.from);//
                             var received = new my_received(message.from, client.session);
                             client_received.push(received);
                         }
                     } catch (e) {
-                        console.error('Error when sending: ', e.message); //return object error
+                        console.error('Error when sending: ', e.message);
                     }
 
-                })();
-            }
+                // })();
+        }
 
-            if (message.body === '!Hi' && message.isGroupMsg === false) {
-                client.sendText(message.from, 'Welcome Venom 🕷')
-                    .then((result) => {
-                        console.log('Result: ', result); //return object success
-                    })
-                    .catch((erro) => {
-                        console.error('Error when sending: ', erro); //return object error
-                    });
-            }
-        });
+        if (message.body === '!Hi' && message.isGroupMsg === false) {
+            client.sendText(message.from, 'Welcome Venom 🕷')
+                .then((result) => {
+                    console.log('Result: ', result); //return object success
+                })
+                .catch((erro) => {
+                    console.error('Error when sending: ', erro); //return object error
+                });
+        }
+    });
 
-    }
 }
+
+
+
+
+
+
