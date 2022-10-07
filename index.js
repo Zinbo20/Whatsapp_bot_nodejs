@@ -141,9 +141,23 @@ app.get("/sessions/:prestador_id", (req, res) => {
     const { prestador_id } = req.params;
 
     (async () => {
+
         try {
+
             const prestador = await db.find(prestador_id);
             if (prestador) {
+                try {
+                    const Index = sessions.findIndex(obj => obj.session == prestador.id_bot);
+                    if (Index > -1) {
+                        client = sessions[Index];
+                        const state = await client.getConnectionState();
+                        console.log(state);
+                    }
+                }
+                catch (e) {
+                    return res.status(500).json("Disconnected");
+                }
+
                 const itemIndex = session_stts.findIndex(obj => obj.clientId === prestador_id);
                 if (itemIndex > -1) {
                     var stt = session_stts[itemIndex].status
@@ -182,8 +196,7 @@ app.post("/initialize/:prestador_id", (req, res) => {
 
         try {
             update_prestador = await db.find(prestador_id);
-            //await db.updateCustomer(prestador_id, { id_bot: milliseconds, nome: update_prestador.nome, whatsapp: update_prestador.whatsapp, boas_vindas: update_prestador.boas_vindas });
-            update_prestador = await db.find(prestador_id);
+            await db.updateCustomer(prestador_id, { id_bot: milliseconds, nome: update_prestador.nome, whatsapp: update_prestador.whatsapp, boas_vindas: update_prestador.boas_vindas });
         } catch (e) {
             console.error('Error when update: ', e.message); //return object error
         }
@@ -337,10 +350,6 @@ function start(client) {
         console.log(message.from);
 
         for (var i = 0; i <= client_received.length - 1; i++) {
-
-            console.log(message.from + "==" + client_received[i].received);
-            console.log(client.session + "==" + client_received[i].prestador_id);
-
             if (message.from == client_received[i].received && client.session == client_received[i].prestador_id) {
                 bool_msg = true;
             }
@@ -348,21 +357,21 @@ function start(client) {
 
         if (bool_msg == false && message.isGroupMsg === false && message.from != "status@broadcast") {   //&& message.body == '!res'
             console.log("entrou no bem_vindo")
-                // (async () => {
-                    //console.log("entrou no async");
-                    try {
-                        const prestador = await db.find_bot(client.session);
-                        if (prestador) {
-                            client.sendText(message.from, prestador.boas_vindas);
-                            client.markUnseenMessage(message.from);//
-                            var received = new my_received(message.from, client.session);
-                            client_received.push(received);
-                        }
-                    } catch (e) {
-                        console.error('Error when sending: ', e.message);
-                    }
+            // (async () => {
+            //console.log("entrou no async");
+            try {
+                const prestador = await db.find_bot(client.session);
+                if (prestador) {
+                    client.sendText(message.from, prestador.boas_vindas);
+                    client.markUnseenMessage(message.from);
+                    var received = new my_received(message.from, client.session);
+                    client_received.push(received);
+                }
+            } catch (e) {
+                console.error('Error when sending: ', e.message);
+            }
 
-                // })();
+            // })();
         }
 
         if (message.body === '!Hi' && message.isGroupMsg === false) {

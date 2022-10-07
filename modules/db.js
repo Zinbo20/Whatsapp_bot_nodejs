@@ -66,7 +66,11 @@ async function find_bot(id_bot){
 module.exports = {selectCustomers, insertCustomer, updateCustomer, deleteCustomer,last_insert,find,find_bot}
 
 
-//  create TABLE cadastros(
+// use theagenda_chatbot;
+
+// ALTER TABLE cadastros CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin
+
+// create TABLE cadastros(
 //      id int auto_increment PRIMARY KEY,
 //      id_bot VARCHAR(40)NOT NULL,
 //      nome VARCHAR(20)NOT NULL,
