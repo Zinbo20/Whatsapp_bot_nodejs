@@ -9,9 +9,7 @@ async function connect(){
         user     : 'theagenda_chatbot',
         password : 'mQ+LNwBHKZG',
         database : 'theagenda_chatbot',
-        port     : '3306',
-        keepAliveInitialDelay: 10000, 
-        enableKeepAlive: true
+        port     : '3306'
     });
 
     console.log("Conectou no MySQL!");
