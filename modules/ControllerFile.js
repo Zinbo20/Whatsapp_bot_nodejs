@@ -1,4 +1,4 @@
-let connectionRequest = require('./connectionRequest')
+let connectionRequest = require('./db')
 
 controllerMethod: (req, res, next) => {
     //Establish the connection on this request
