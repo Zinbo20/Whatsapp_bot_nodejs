@@ -1,17 +1,24 @@
 const mysql = require("mysql2/promise");
 
-async function connect(){
-    if(global.connection && global.connection.state !== 'disconnected')
+async function connect() {
+    if (global.connection && global.connection.state !== 'disconnected')
         return global.connection;
- 
-    const connection = await mysql.createConnection({
-        host     : '107.180.94.5',
-        user     : 'theagenda_chatbot',
-        password : 'mQ+LNwBHKZG',
-        database : 'theagenda_chatbot',
-        port     : '3306',
+    else if(global.connection){
+        console.log(global.connection.state);
+    }
+
+    const connection = mysql.createPool({    //mysql.createConnection
+        host: '107.180.94.5',
+        user: 'theagenda_chatbot',
+        password: 'mQ+LNwBHKZG',
+        database: 'theagenda_chatbot',
+        port: '3306',
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0,
+        keepAliveInitialDelay: 10000, 
         enableKeepAlive: true
-    });
+      });
 
     console.log("Conectou no MySQL!");
     global.connection = connection;
@@ -24,47 +31,47 @@ async function selectCustomers() {
     return rows;
 }
 
-async function insertCustomer(customer){
+async function insertCustomer(customer) {
     const client = await connect();
     const sql = 'INSERT INTO cadastros(id_bot,nome,whatsapp,boas_vindas) VALUES (?,?,?,?);';
     const values = [customer.id_bot, customer.nome, customer.whatsapp, customer.boas_vindas];
     return await client.query(sql, values);
-  }
+}
 
-async function updateCustomer(id, customer){
-      const client = await connect();
-      const sql = 'UPDATE cadastros SET id_bot =?, nome=?, whatsapp=?, boas_vindas=? WHERE id=?';
-      const values = [customer.id_bot, customer.nome, customer.whatsapp, customer.boas_vindas, id];
-      return await client.query(sql, values);
-  }
+async function updateCustomer(id, customer) {
+    const client = await connect();
+    const sql = 'UPDATE cadastros SET id_bot =?, nome=?, whatsapp=?, boas_vindas=? WHERE id=?';
+    const values = [customer.id_bot, customer.nome, customer.whatsapp, customer.boas_vindas, id];
+    return await client.query(sql, values);
+}
 
-async function deleteCustomer(id){ 
+async function deleteCustomer(id) {
     const client = await connect();
     const sql = 'DELETE FROM cadastros where id=?;';
     return await client.query(sql, [id]);
 }
 
-async function last_insert(){
+async function last_insert() {
     const client = await connect();
     const [rows] = await client.query('SELECT * FROM cadastros WHERE id = (SELECT MAX(id) FROM cadastros)');
     return rows[0];
 }
 
-async function find(id){ 
+async function find(id) {
     const client = await connect();
     const sql = 'SELECT * FROM cadastros WHERE id = ?';
     const [rows] = await client.query(sql, [id]);
     return rows[0];
 }
 
-async function find_bot(id_bot){ 
+async function find_bot(id_bot) {
     const client = await connect();
     const sql = 'SELECT * FROM cadastros WHERE id_bot = ?';
     const [rows] = await client.query(sql, [id_bot]);
     return rows[0];
 }
 
-module.exports = {selectCustomers, insertCustomer, updateCustomer, deleteCustomer,last_insert,find,find_bot}
+module.exports = { connect, selectCustomers, insertCustomer, updateCustomer, deleteCustomer, last_insert, find, find_bot }
 
 
 // use theagenda_chatbot;
