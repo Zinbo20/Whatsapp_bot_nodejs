@@ -8,11 +8,11 @@ init.initialize_all();
 
 (async () => {
 
-    console.log('Começou!');
+    //console.log('Começou!');
 
-    console.log('SELECT * FROM cadastro');
+    //console.log('SELECT * FROM cadastro');
     const db_cadastro = await db.selectCustomers();
-    console.log(db_cadastro);
+    //console.log(db_cadastro);
 })();
 
 const express = require('express');
@@ -151,7 +151,7 @@ app.get("/sessions/:prestador_id", (req, res) => {
                     if (Index > -1) {
                         client = sessions[Index];
                         const state = await client.getConnectionState();
-                        console.log(state);
+                        //console.log(state);
                     }
                 }
                 catch (e) {
@@ -284,7 +284,7 @@ function whatsapp_venom(id, id_bot) {
             prestador_bot, //Pass the name of the client you want to start the bot
             //catchQR
             (base64Qrimg, asciiQR, attempts, urlCode) => {
-                console.log('Number of attempts to read the qrcode: ', attempts);
+                //console.log('Number of attempts to read the qrcode: ', attempts);
                 //console.log(prestador_id + ' Terminal qrcode:\n', asciiQR);
                 //console.log('base64 image string qrcode: ', base64Qrimg);
                 //console.log('urlCode (data-ref): ', urlCode);
@@ -315,7 +315,7 @@ function whatsapp_venom(id, id_bot) {
             {
                 multidevice: true, // for version not multidevice use false.(default: true)
                 headless: true, // Headless chrome
-                logQR: true, // Logs QR automatically in terminal
+                logQR: false, // Logs QR automatically in terminal
                 disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
                 disableWelcome: true, // Will disable the welcoming message which appears in the beginning
                 autoClose: 120000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
@@ -331,7 +331,7 @@ function whatsapp_venom(id, id_bot) {
 
 function start(client) {
 
-    console.log("ready");
+    //console.log("ready");
 
     sessions.push(client);
 
@@ -356,7 +356,7 @@ function start(client) {
         }
 
         if (bool_msg == false && message.isGroupMsg === false && message.from != "status@broadcast") {   //&& message.body == '!res'
-            console.log("entrou no bem_vindo")
+            //console.log("entrou no bem_vindo")
             // (async () => {
             //console.log("entrou no async");
             try {
