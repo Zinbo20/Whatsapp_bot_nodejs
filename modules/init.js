@@ -11,7 +11,7 @@ async function rm_all_tokens() {
         let bool = false;
 
         for (var i = 0; i <= db_cadastro.length - 1; i++) {
-            if (file == db_cadastro[i].id_bot) {
+            if (file == "session-" + db_cadastro[i].id_bot) {
                 bool = true;
             }
         }
@@ -31,7 +31,10 @@ async function initialize_all() {
     fs.readdirSync("./tokens").forEach(file => {
 
         for (var i = 0; i <= db_cadastro.length - 1; i++) {
-            if (file == db_cadastro[i].id_bot) {
+            if (file == "session-" + db_cadastro[i].id_bot) {
+                for (var x = 0; x <= 7 ; x++) {
+                    file = file.slice(1);
+                }
                 index.whatsapp_venom(db_cadastro[i].id,file);
             }
         }
