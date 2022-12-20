@@ -230,6 +230,8 @@ app.post("/envio_de_mensagem", (req, res) => {
         var destino = envio.whatsapp + "@c.us";
         try {
             client.sendText(destino, envio.mensagem);
+            var received = new my_received(destino, client.session);
+            client_received.push(received);
             return res.status(200).json("Mensagem enviada para " + destino);
         } catch (e) {
             console.error('Error when send: ', e.message);
