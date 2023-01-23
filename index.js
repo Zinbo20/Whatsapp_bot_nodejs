@@ -148,11 +148,11 @@ app.get("/sessions/:prestador_id", (req, res) => {
             if (prestador) {
                 try {
                     const Index = sessions.findIndex(obj => obj.session == prestador.id_bot);
-                    if (Index > -1) {
-                        client = sessions[Index];
-                        const state = await client.getConnectionState();
-                        //console.log(state);
-                    }
+                    //if (Index > -1) {
+                    //    client = sessions[Index];
+                    //    const state = await client.getConnectionState();
+                    //    //console.log(state);
+                    //}
                 }
                 catch (e) {
                     return res.status(500).json("Disconnected");
