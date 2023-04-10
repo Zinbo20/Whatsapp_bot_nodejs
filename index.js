@@ -357,7 +357,7 @@ function start(client) {
             }
         }
 
-        if (bool_msg == false && message.isGroupMsg === false && message.from != "status@broadcast") {   //&& message.body == '!res'
+        if (bool_msg == false && message.type == "chat" && message.from != "status@broadcast") {   //&& message.body == '!res'
             //console.log("entrou no bem_vindo")
             // (async () => {
             //console.log("entrou no async");
@@ -376,7 +376,7 @@ function start(client) {
             // })();
         }
 
-        if (message.body === '!Hi' && message.isGroupMsg === false) {
+        if (message.body == '!Hi' && message.type == "chat") {
             client.sendText(message.from, 'Welcome Venom 🕷')
                 .then((result) => {
                     console.log('Result: ', result); //return object success
