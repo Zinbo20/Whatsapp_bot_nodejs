@@ -40,7 +40,7 @@ function my_session(status, clientId) {
     this.clientId = clientId;
 }
 
-app.post("/Cadastro_do_prestador", (req, res) => {
+app.post("/Cadastro", (req, res) => {
 
     var milliseconds = new Date().getTime();
 
@@ -59,7 +59,7 @@ app.post("/Cadastro_do_prestador", (req, res) => {
     })();
 });
 
-app.post("/update/:prestador_id", (req, res) => {
+app.post("/Update/:prestador_id", (req, res) => {
 
     const { prestador_id } = req.params;
 
@@ -105,7 +105,7 @@ app.post("/update/:prestador_id", (req, res) => {
 
 // });
 
-app.get("/prestadores", (req, res) => {
+app.get("/Todos", (req, res) => {
     (async () => {
         const db_cadastro = await db.selectCustomers();
         return res.status(200).json(db_cadastro);
@@ -136,7 +136,7 @@ app.get("/RequestQR/:prestador_id", (req, res) => {
     })();
 });
 
-app.get("/sessions/:prestador_id", (req, res) => {
+app.get("/Status/:prestador_id", (req, res) => {
 
     const { prestador_id } = req.params;
 
@@ -174,7 +174,7 @@ app.get("/sessions/:prestador_id", (req, res) => {
 });
 
 
-app.post("/initialize/:prestador_id", (req, res) => {
+app.post("/Inicializar/:prestador_id", (req, res) => {
 
     const { prestador_id } = req.params;
 
@@ -216,7 +216,7 @@ app.post("/initialize/:prestador_id", (req, res) => {
 
 });
 
-app.post("/envio_de_mensagem", (req, res) => {
+app.post("/Enviar", (req, res) => {
 
     //const { token } = req.params;
     const { id, whatsapp, mensagem } = req.body;
@@ -242,7 +242,7 @@ app.post("/envio_de_mensagem", (req, res) => {
 
 });
 
-app.get("/token_id/:prestador_id", (req, res) => {
+app.get("/Token/:prestador_id", (req, res) => {
 
     const { prestador_id } = req.params;
 
@@ -268,7 +268,7 @@ function my_received(received, prestador_id) {
     this.prestador_id = prestador_id;
 }
 
-app.post("/resetar_dia", (req, res) => {
+app.post("/Resetar_dia", (req, res) => {
     client_received = [];
     return res.status(200).json("Client_received resetado");
 });
