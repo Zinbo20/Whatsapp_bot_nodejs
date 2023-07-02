@@ -25,7 +25,7 @@ Exemplo em Php:
 
     public static function criarPrestador($nome, $whatsapp, $boasVindas){
         $client = self::getClient();
-        $url = self::getUrl('/Cadastro_do_prestador');
+        $url = self::getUrl('/Cadastro');
         $headers = [
             'Content-Type' => 'application/json',
         ];
