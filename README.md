@@ -45,7 +45,7 @@ Exemplo em Php:
 
 
 
-###Endpoint POST {{ _.base }}/Cadastro 
+### Endpoint POST {{ _.base }}/Cadastro 
 
 { 
 
@@ -59,7 +59,7 @@ Exemplo em Php:
 
 ```Retorna: O cadastro```
  
-###Endpoint POST {{ _.base }}/Update/Parametros_id 
+### Endpoint POST {{ _.base }}/Update/Parametros_id 
 
 { 
 
@@ -73,21 +73,21 @@ Exemplo em Php:
 
 ```Retorna: O prestador atualizado ```
 
-###Endpoint GET {{ _.base }}/Todos
+### Endpoint GET {{ _.base }}/Todos
 
 ```Retorna: Todos os Prestadores```
 
-###Endpoint GET {{ _.base }}/Status/Parametros_id 
+### Endpoint GET {{ _.base }}/Status/Parametros_id 
 
 ```Retorna: Status atual```
  
 
-###Endpoint POST {{ _.base }}/Inicializar/Parametros_id 
+### Endpoint POST {{ _.base }}/Inicializar/Parametros_id 
 
 ```Retorna: “Inicializado”```
  
 
-###Endpoint POST {{ _.base }}/Enviar 
+### Endpoint POST {{ _.base }}/Enviar 
 
 { 
 
@@ -102,15 +102,15 @@ Exemplo em Php:
 ```Retorna: "Mensagem enviada para (EndereçoWpp)"```
  
 
-###Endpoint GET {{ _.base }}/RequestQR/Parametros_id 
+### Endpoint GET {{ _.base }}/RequestQR/Parametros_id 
 
 ```Retorna: QRcode Base64```
  
 
-###Endpoint GET {{ _.base }}/Token/Parametros_id 
+### Endpoint GET {{ _.base }}/Token/Parametros_id 
 
 ```Retorna: O id_bot ```
  
-###Endpoint POST {{ _.base }}/Resetar_dia 
+### Endpoint POST {{ _.base }}/Resetar_dia 
 
 ```Retorna: Uma lista vazia```
