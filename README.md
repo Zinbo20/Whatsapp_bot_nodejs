@@ -56,9 +56,9 @@ Endpoint POST {{ _.base }}/Cadastro
 	"boas_vindas": “" 
 
 } 
-	```
-Retorna: O cadastro 
-	```
+
+```Retorna: O cadastro```
+ 
 Endpoint POST {{ _.base }}/Update/Parametros_id 
 
 { 
@@ -70,24 +70,21 @@ Endpoint POST {{ _.base }}/Update/Parametros_id
 	"boas_vindas": "" 
 
 } 
-	```
-Retorna: O prestador atualizado 
-	```
-Endpoint GET {{ _.base }}/Todos 
-	```
-Retorna: Todos os Prestadores 
- 	```
+
+```Retorna: O prestador atualizado ```
+
+Endpoint GET {{ _.base }}/Todos
+
+```Retorna: Todos os Prestadores```
 
 Endpoint GET {{ _.base }}/Status/Parametros_id 
-	```
-Retorna: Status atual  
-	```
+
+```Retorna: Status atual```
  
 
 Endpoint POST {{ _.base }}/Inicializar/Parametros_id 
-	```
-Retorna: “Inicializado” 
-	```
+
+```Retorna: “Inicializado”```
  
 
 Endpoint POST {{ _.base }}/Enviar 
@@ -101,23 +98,19 @@ Endpoint POST {{ _.base }}/Enviar
 	"mensagem": "" 
 
 } 
-	```
-Retorna: "Mensagem enviada para (EndereçoWpp)" 
-	```
+
+```Retorna: "Mensagem enviada para (EndereçoWpp)"```
  
 
 Endpoint GET {{ _.base }}/RequestQR/Parametros_id 
-	```
-Retorna: QRcode Base 64 
-	```
+
+```Retorna: QRcode Base 64```
  
 
 Endpoint GET {{ _.base }}/Token/Parametros_id 
-	```
-Retorna: O id_bot 
-	```
+
+```Retorna: O id_bot ```
  
 Endpoint POST {{ _.base }}/Resetar_dia 
-	```
-Retorna: Uma lista Vazia 
-	```
+
+```Retorna: Uma lista Vazia```
