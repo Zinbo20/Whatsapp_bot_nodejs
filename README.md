@@ -63,7 +63,7 @@ Exemplo em Php:
 
 { 
 
-	"nome": "Bot", 
+	"nome": "", 
 
 	"whatsapp": "", 
 
